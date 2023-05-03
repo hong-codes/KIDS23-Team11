@@ -29,7 +29,7 @@
   </header>
 
   <!-- Begin page content -->
-  <main role="main" class="container" style="margin-top: 60px">
+  <main role="main" class="container-xxl" style="margin-top: 60px">
     <slot />
   </main>
 
@@ -41,5 +41,5 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 </script>
