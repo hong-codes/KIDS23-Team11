@@ -1,13 +1,18 @@
 <template>
-  <v-app-bar flat>
+  <v-app-bar density="">
     <v-app-bar-title>
-      <v-icon icon="mdi-circle-slice-6" />
-
-      Essentials Preset
+      <img
+        src="@/assets/logo.svg"
+        alt=""
+        height="40"
+        align="left"
+        class="pr-3"
+      />
+      ElevenGPT
     </v-app-bar-title>
   </v-app-bar>
 </template>
 
 <script lang="ts" setup>
-  //
+//
 </script>
