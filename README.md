@@ -70,4 +70,38 @@ To test the app, go to the homepage: http://localhost:8000/
 When app is launched for the first time, it will load sample database from GPCRdb Protein family query and sample CSV file from `/raw_data/` folder.
 Explore REST api queires at following page: http://localhost:8000/api/
 
+To post new data, go to database use the following API endpoint:
+http://localhost:8000/api/post_question_answer/
+```
+
+The JSON object for post must following this format:
+```json
+{
+	"text": "What is the meaning of life?",
+	"type": "general",
+	"answers": [
+		{
+			"type": "ChatGPT",
+			"text": "Menaing of life is to be happy.",
+			"score": "positive"
+		},
+		{
+			"type": "BioGPT",
+			"text": "Meaning of life is to achieve your goals.",
+			"score": "neutral"
+		},
+		{
+			"type": "AI21",
+			"text": "Meaning of life is to not die.",
+			"score": "negative"
+		},
+		{
+			"type": "OpenAssistant",
+			"text": "Meaning of life is to be always learning.",
+			"score": "positive"
+		}
+	]
+}
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
