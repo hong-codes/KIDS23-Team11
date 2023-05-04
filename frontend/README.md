@@ -5,7 +5,7 @@ more about the project at the project Wiki.
 
 The frontend provides the following capabilities:
 
-- Let's users submit a question for the ML engine to retreive the answers from 4
+- Lets users submit a question for the ML engine to retreive the answers from 4
   pre-determined model types.
 
       - The frontend will submit this to the ML model and wait - via polling :(

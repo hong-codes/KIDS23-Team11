@@ -1,4 +1,12 @@
+$fa-font-path: '../webfonts';
+
+@import './_variables';
 @import 'bootstrap/scss/bootstrap.scss';
+@import './_bootswatch.scss';
+
+@import 'fontawesome-free/scss/fontawesome.scss';
+// our project needs Solid + Brands
+@import 'fontawesome-free/scss/solid.scss';
 
 /* Sticky footer styles
 -------------------------------------------------- */
