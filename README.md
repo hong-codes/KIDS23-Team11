@@ -72,7 +72,6 @@ Explore REST api queires at following page: http://localhost:8000/api/
 
 To post new data, go to database use the following API endpoint:
 http://localhost:8000/api/post_question_answer/
-```
 
 The JSON object for post must following this format:
 ```json

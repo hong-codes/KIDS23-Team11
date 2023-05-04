@@ -1,0 +1,26 @@
+{
+	"text": "What is the meaning of life?",
+	"type": "general",
+	"answers": [
+		{
+			"type": "ChatGPT",
+			"text": "Menaing of life is to be happy.",
+			"score": "positive"
+		},
+		{
+			"type": "BioGPT",
+			"text": "Meaning of life is to achieve your goals.",
+			"score": "neutral"
+		},
+		{
+			"type": "AI21",
+			"text": "Meaning of life is to not die.",
+			"score": "negative"
+		},
+		{
+			"type": "OpenAssistant",
+			"text": "Meaning of life is to be always learning.",
+			"score": "positive"
+		}
+	]
+}
