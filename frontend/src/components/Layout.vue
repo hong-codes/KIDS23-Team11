@@ -1,9 +1,11 @@
 <template>
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <img alt="logo" class="logo pr-3" src="@/assets/logo.svg" height="50" />
-      <a class="navbar-brand" href="#">Eleven GPT</a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark py-0 my-1">
+      <a class="navbar-brand" href="#">
+        <img alt="logo" class="logo px-4" src="@/assets/logo-child.svg" height="40" />
+        👋 Hey JudeGPT
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -21,6 +23,9 @@
             <RouterLink class="nav-link" to="/">Questions</RouterLink>
           </li>
           <li class="nav-item active">
+            <RouterLink class="nav-link" to="/ranking">Ranking</RouterLink>
+          </li>
+          <li class="nav-item active">
             <RouterLink class="nav-link" to="/about">About</RouterLink>
           </li>
         </ul>
@@ -29,7 +34,7 @@
   </header>
 
   <!-- Begin page content -->
-  <main role="main" class="container-xxl" style="margin-top: 60px">
+  <main role="main" class="container-xxl" style="margin-top: 80px">
     <slot />
   </main>
 

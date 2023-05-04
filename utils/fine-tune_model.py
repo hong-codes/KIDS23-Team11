@@ -1,41 +1,59 @@
 # Load the dataset
-from datasets import load_dataset
-datasets = load_dataset('ericyu3/openassistant_inpainted_dialogs_5k_biomedical')
+if False:
+    from datasets import load_dataset
+    datasets = load_dataset('ericyu3/openassistant_inpainted_dialogs_5k_biomedical')
 
 
-# Sub-sampling (for quick testing)
-from datasets import DatasetDict
+    # Sub-sampling (for quick testing)
+    from datasets import DatasetDict
 
-# Shuffle the train dataset (use a seed for reproducibility)
-shuffled_data = datasets['train'].shuffle(seed=42)
+    # Shuffle the train dataset (use a seed for reproducibility)
+    shuffled_data = datasets['train'].shuffle(seed=42)
+
+    # Split the shuffled dataset into new train and validation datasets
+    new_train_data = shuffled_data.select(range(100))
+    new_validation_data = shuffled_data.select(range(100, 120))
+
+    # Create a new DatasetDict with the new train and validation datasets
+    datasets = DatasetDict({
+        'train': new_train_data,
+        'validation': new_validation_data
+    })
+
+from datasets import Dataset, DatasetDict
+import pandas as pd
+
+df = pd.read_csv("KIDS2023_QA.input.txt", sep = '\t', header=0)
+df = pd.DataFrame(df)
+dataset = Dataset.from_pandas(df)
 
 # Split the shuffled dataset into new train and validation datasets
-new_train_data = shuffled_data.select(range(9000))
-new_validation_data = shuffled_data.select(range(9000, 10000))
+new_train_data = dataset.select(range(120))
+new_validation_data = dataset.select(range(120, 157))
 
-# Create a new DatasetDict with the new train and validation datasets
 datasets = DatasetDict({
     'train': new_train_data,
     'validation': new_validation_data
 })
 
-
 # Download a pretrained tokenizer
 from transformers import AutoTokenizer
 
-model_checkpoint = "microsoft/biogpt"    
+model_checkpoint = "microsoft/BioGPT"    
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, use_fast=True)
 
 # Define a function that call the tokenizer on the texts
 def tokenize_function(examples):
-    return tokenizer(examples["labeled_dialog"])
+    #return tokenizer(examples["labeled_dialog"])
+    return tokenizer(examples["text"])
 
 # Call the tokenizer on all the texts
 tokenized_datasets = datasets.map(
     tokenize_function,
     batched=True,
     num_proc=4,
-    remove_columns=["passage_id", "page_title", "labeled_dialog"]
+    #remove_columns=["passage_id", "page_title", "labeled_dialog"]
+    remove_columns=["text"]
 )
 
 
@@ -73,11 +91,13 @@ model = AutoModelForCausalLM.from_pretrained(model_checkpoint)
 
 model_name = model_checkpoint.split("/")[-1]
 training_args = TrainingArguments(
-    f"{model_name}-finetuned-5kbiomedical",
+    #f"{model_name}-finetuned-5kbiomedical",
+    f"{model_name}-finetuned-KIDS2023",
     evaluation_strategy="epoch",
     learning_rate=2e-5,
     weight_decay=0.01,
     push_to_hub=False,
+    num_train_epochs=3,
     per_device_train_batch_size=8  # Adjust the batch size based on your system's resources
 )
 
@@ -94,5 +114,5 @@ trainer.train()
 
 
 # Save the model and the tokenizer
-trainer.save_model(f"{model_name}-finetuned-5kbiomedical")
-tokenizer.save_pretrained(f"{model_name}-finetuned-5kbiomedical/tokenizer")
+trainer.save_model(f"{model_name}-finetuned-KIDS2023")
+tokenizer.save_pretrained(f"{model_name}-finetuned-KIDS2023/tokenizer")
