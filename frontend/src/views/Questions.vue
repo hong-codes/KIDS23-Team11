@@ -7,13 +7,21 @@
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Your Question</label>
           <textarea
+            v-model="questionText"
             class="form-control"
             id="exampleFormControlTextarea1"
-            rows="3"
+            rows="4"
             placeholder="Your question goes here"
           ></textarea>
+          <div id="passwordHelpBlock" class="form-text">
+            The question you submit here will be sent to our AI models for answering. The models
+            might take a while to respond - but you do not need to wait for them to finish. You can
+            continue adding questions and the questions will be processed in the background. PLEASE
+            DO NOT CLOSE THIS TAB!
+          </div>
         </div>
-        <button class="btn btn-primary mb-3">Submit</button>
+
+        <button class="btn btn-primary mb-3" @click="addQuestion">Submit</button>
       </div>
     </div>
     <div class="row">
@@ -21,81 +29,31 @@
         <table class="table">
           <thead>
             <tr>
+              <th scope="col">ID</th>
               <th scope="col">Question</th>
-              <th scope="col">Answers</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>What is the meaning of life?</td>
+            <tr v-for="q in questions" :key="q.id">
+              <td>{{ q.id }}</td>
+              <td>{{ q.text }}</td>
               <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>What is the meaning of life?</td>
-              <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>What is the meaning of life?</td>
-              <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>What is the meaning of life?</td>
-              <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>What is the meaning of life?</td>
-              <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>What is the meaning of life?</td>
-              <td>
-                <ul>
-                  <li>Answer 1</li>
-                  <li>Answer 2</li>
-                  <li>Answer 3</li>
-                </ul>
+                <i v-if="q.status == 'pending'" class="fas fa-spin fa-spinner text-warning"></i>
+                <i v-if="q.status == 'answered'" class="fas fa-check-circle text-success"></i>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-
+      <!--
       <div class="col-4">
         <QuestionList :questions="questions" />
       </div>
       <div class="col-8">
         <QuestionDetail :question="questions[0]" />
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -105,15 +63,22 @@ import QuestionList from './questions/QuestionList.vue'
 import QuestionDetail from './questions/QuestionDetail.vue'
 import { useQuestionStore } from '@/stores/questions'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
+const questionText = ref('')
 
 const questionStore = useQuestionStore()
+const { questions, count } = storeToRefs(questionStore)
 
-const { questions } = storeToRefs(questionStore)
+const addQuestion = () => {
+  questionStore.addQuestion({
+    id: count.value + 1,
+    text: questionText.value,
+    status: 'pending'
+  })
+}
 
-questionStore.addQuestion({
-  id: 1,
-  text: 'What is the meaning of life?'
-  /*
+/*
   answers: [
     {
       type: 'ChatGPT',
@@ -148,6 +113,6 @@ questionStore.addQuestion({
       }
     }
   ]
-  */
 })
+  */
 </script>
