@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export type Question = {
   id: number
   text: string
-  //status: 'pending' | 'answered' | 'error'
+  status: 'pending' | 'answered' | 'error'
   //answer: string
 }
 
