@@ -1,9 +1,9 @@
 <template>
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark py-0 my-1">
       <a class="navbar-brand" href="#">
-        <img alt="logo" class="logo px-4" src="@/assets/logo-child.svg" height="50" />
+        <img alt="logo" class="logo px-4" src="@/assets/logo-child.svg" height="40" />
         👋 Hey JudeGPT
       </a>
       <button
