@@ -1,4 +1,28 @@
-# frontend
+# Frontend - DESIGN / REQUIREMENTS
+
+This project is the frontend for the bio hackathon TEAM 11 - at st.jude. Read
+more about the project at the project Wiki.
+
+The frontend provides the following capabilities:
+
+- Let's users submit a question for the ML engine to retreive the answers from 4
+  pre-determined model types.
+
+      - The frontend will submit this to the ML model and wait - via polling :(
+
+      - Frontend will allow users to submit more than one question, so that the
+      user does not have to wait for API to finish
+
+      - Frontend is also responsible for POSTing the results to another django
+      backend that will store the questions+answers in a database
+
+- In a separate area, the users can enter "Ranking" UI. The ranking UI will only
+  show questions that have been fully processed by the ML (i.e. all answers are
+  ready)
+
+      - In the ranking UI, users will submit a rating for each answer
+      - The ranking UI should indicate which questions are rated and which ones
+      are pending a rating.
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -13,8 +37,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
