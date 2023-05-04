@@ -97,6 +97,7 @@ training_args = TrainingArguments(
     learning_rate=2e-5,
     weight_decay=0.01,
     push_to_hub=False,
+    num_train_epochs=3,
     per_device_train_batch_size=8  # Adjust the batch size based on your system's resources
 )
 
